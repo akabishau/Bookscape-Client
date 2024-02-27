@@ -1,14 +1,14 @@
-// import '../styles/App.css';
+import { Routes, Route } from 'react-router-dom';
+import * as ROUTES from '../constants/routes';
+import Home from '../pages/Home';
+import Search from '../pages/Search';
 
 function App() {
   return (
-    <>
-      <h1>Welcome to Bookscape</h1>
-      <p>
-        BookScape is a web application that allows users to search for books and
-        view details about them.
-      </p>
-    </>
+    <Routes>
+      <Route path={ROUTES.HOME_ROUTE} element={<Home />} />
+      <Route path={ROUTES.SEARCH_ROUTE} element={<Search />} />
+    </Routes>
   );
 }
 
