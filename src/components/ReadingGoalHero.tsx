@@ -1,18 +1,26 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import ProgressBar from './ProgressBar';
+import ReadingGoalModal from './ReadingGoalModal';
+import { ReadingStatsContext } from '../contexts/ReadingStatsContext';
 
 function ReadingGoalHero() {
-  const [progress, setProgress] = useState(10);
+  const readingStats = useContext(ReadingStatsContext);
+
+  if (!readingStats) {
+    return null; // Return null if the context is not available
+  }
+
+  const { goal, setGoal, completed, progress } = readingStats; // Destructure the context values
+
   return (
     <Wrapper>
-      <Goal>
-        <h1>Reading Goal</h1>
-        <button onClick={() => setProgress(progress + 5)}>Edit</button>
-        <p>{progress}%</p>
-        <p>You have read 43 of 50 books.</p>
-        <p>6 books behind schedule</p>
-      </Goal>
+      <ReadingGoal
+        goal={goal}
+        setGoal={setGoal}
+        completed={completed}
+        progress={progress}
+      />
       <ProgressBar progress={progress} />
     </Wrapper>
   );
@@ -24,7 +32,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
   gap: 1rem;
-  background-color: pink;
 `;
 
 const Goal = styled.div`
@@ -32,4 +39,37 @@ const Goal = styled.div`
   gap: 1rem;
   justify-items: start;
   background-color: yellow;
+`;
+
+function ReadingGoal({ goal, setGoal, completed, progress }) {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleSetGoal = goal => {
+    setGoal(goal);
+    setModalOpen(false);
+  };
+  return (
+    <ReadingGoalContainer>
+      <h1>Reading Goal</h1>
+      <p>{progress}%</p>
+      <p>
+        You have read {completed} of {goal} books.
+      </p>
+      <p>{goal - completed} books behind schedule</p>
+      <div>
+        <button onClick={() => setModalOpen(true)}>Set Reading Goal</button>
+        <ReadingGoalModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          onSetGoal={handleSetGoal}
+        />
+        {goal && <p>Your goal is to read {goal} books in 2024.</p>}
+      </div>
+    </ReadingGoalContainer>
+  );
+}
+
+const ReadingGoalContainer = styled.div`
+  /* Add styles for the container */
+  background-color: pink;
 `;

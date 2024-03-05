@@ -89,4 +89,6 @@ export default function ProgressBar({ progress }: ProgressBarProps) {
   );
 }
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  background-color: aliceblue;
+`;
