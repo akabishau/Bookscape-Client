@@ -1,7 +1,8 @@
 import React, { useState, createContext, useEffect } from 'react';
+import useLocalStorage from '../hooks/useLocalStorage';
 
 type ReadingStats = {
-  goal: number;
+  goal: number | null;
   setGoal: (goal: number) => void;
   completed: number;
   setCompleted: (completed: number) => void;
@@ -17,14 +18,15 @@ type ProviderProps = {
 };
 
 export const ReadingStatsProvider: React.FC<ProviderProps> = ({ children }) => {
-  const [goal, setGoal] = useState(20);
-  const [completed, setCompleted] = useState(5);
+  const [goal, setGoal] = useLocalStorage<number | null>('readingGoal', null);
+  const [completed, setCompleted] = useLocalStorage<number>(
+    'booksCompleted',
+    7
+  );
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (goal > 0) {
-      setProgress((completed / goal) * 100);
-    }
+    setProgress(goal && goal > 0 ? (completed / goal) * 100 : 0);
   }, [completed, goal]);
 
   const value: ReadingStats = {

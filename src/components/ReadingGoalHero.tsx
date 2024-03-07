@@ -51,11 +51,6 @@ function ReadingGoal({ goal, setGoal, completed, progress }) {
   return (
     <ReadingGoalContainer>
       <h1>Reading Goal</h1>
-      <p>{progress}%</p>
-      <p>
-        You have read {completed} of {goal} books.
-      </p>
-      <p>{goal - completed} books behind schedule</p>
       <div>
         <button onClick={() => setModalOpen(true)}>Set Reading Goal</button>
         <ReadingGoalModal
@@ -63,8 +58,16 @@ function ReadingGoal({ goal, setGoal, completed, progress }) {
           onClose={() => setModalOpen(false)}
           onSetGoal={handleSetGoal}
         />
-        {goal && <p>Your goal is to read {goal} books in 2024.</p>}
       </div>
+      <p>{progress}%</p>
+      {goal ? (
+        <p>
+          You have read {completed} of {goal} books.
+        </p>
+      ) : (
+        <p>You haven't set a reading goal for 2024 yet.</p>
+      )}
+      <p>{goal - completed} books behind schedule</p>
     </ReadingGoalContainer>
   );
 }
