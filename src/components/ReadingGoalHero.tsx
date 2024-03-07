@@ -1,18 +1,11 @@
 import styled from 'styled-components';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import ProgressBar from './ProgressBar';
 import ReadingGoalModal from './ReadingGoalModal';
-import { ReadingStatsContext } from '../contexts/ReadingStatsContext';
+import useReadingStats from '../hooks/useReadingStats';
 
 function ReadingGoalHero() {
-  const readingStats = useContext(ReadingStatsContext);
-
-  if (!readingStats) {
-    return null; // Return null if the context is not available
-  }
-
-  const { goal, setGoal, completed, progress } = readingStats; // Destructure the context values
-
+  const { goal, setGoal, completed, progress } = useReadingStats(); // Destructure the context values
   return (
     <Wrapper>
       <ReadingGoal

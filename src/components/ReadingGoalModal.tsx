@@ -61,14 +61,13 @@ const CancelButton = styled(ModalButton)`
   }
 `;
 
-import { useContext } from 'react';
-import { ReadingStatsContext } from '../contexts/ReadingStatsContext';
+import useReadingStats from '../hooks/useReadingStats';
 
 // The modal component itself
 const ReadingGoalModal = ({ isOpen, onClose }) => {
-  // using internal state to make the input a controlled component
+  const { goal, setGoal } = useReadingStats();
 
-  const { goal, setGoal } = useContext(ReadingStatsContext);
+  // using internal state to make the input a controlled component
   const [inputValue, setInputValue] = useState(goal);
 
   if (!isOpen) {
