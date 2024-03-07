@@ -5,16 +5,10 @@ import ReadingGoalModal from './ReadingGoalModal';
 import useReadingStats from '../hooks/useReadingStats';
 
 function ReadingGoalHero() {
-  const { goal, setGoal, completed, progress } = useReadingStats(); // Destructure the context values
   return (
     <Wrapper>
-      <ReadingGoal
-        goal={goal}
-        setGoal={setGoal}
-        completed={completed}
-        progress={progress}
-      />
-      <ProgressBar progress={progress} />
+      <ReadingGoal />
+      <ProgressBar />
     </Wrapper>
   );
 }
@@ -34,8 +28,9 @@ const Goal = styled.div`
   background-color: yellow;
 `;
 
-function ReadingGoal({ goal, setGoal, completed, progress }) {
+function ReadingGoal() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { goal, setGoal, completed, progress } = useReadingStats();
 
   const handleSetGoal = goal => {
     setGoal(goal);

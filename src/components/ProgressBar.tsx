@@ -25,12 +25,10 @@ const BOOK_PATHS = [
 
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import useReadingStats from '../hooks/useReadingStats';
 
-interface ProgressBarProps {
-  progress: number;
-}
-
-export default function ProgressBar({ progress }: ProgressBarProps) {
+export default function ProgressBar() {
+  const { progress } = useReadingStats();
   const stop1Ref = useRef<SVGStopElement | null>(null);
   const stop2Ref = useRef<SVGStopElement | null>(null);
 
