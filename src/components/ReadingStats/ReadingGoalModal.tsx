@@ -61,14 +61,23 @@ const CancelButton = styled(ModalButton)`
   }
 `;
 
-import useReadingStats from '../hooks/useReadingStats';
+import useReadingStats from '../../hooks/useReadingStats';
 
+interface ReadingGoalModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+// TODO: Add user input validation and error handling
 // The modal component itself
-const ReadingGoalModal = ({ isOpen, onClose }) => {
+const ReadingGoalModal: React.FC<ReadingGoalModalProps> = ({
+  isOpen,
+  onClose
+}) => {
   const { goal, setGoal } = useReadingStats();
 
   // using internal state to make the input a controlled component
-  const [inputValue, setInputValue] = useState(goal);
+  const [inputValue, setInputValue] = useState<number | null>(goal);
 
   if (!isOpen) {
     return null;
@@ -87,8 +96,8 @@ const ReadingGoalModal = ({ isOpen, onClose }) => {
         <div>How many books would you like to read in 2024?</div>
         <ModalInput
           type="number"
-          value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
+          value={inputValue || ''}
+          onChange={e => setInputValue(Number(e.target.value))} // conversion doesn't handle possible NaN or empty string -> 0
           placeholder="Enter number"
         />
         <ModalButton onClick={handleSetGoal}>Set goal</ModalButton>

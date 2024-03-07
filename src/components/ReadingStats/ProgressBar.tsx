@@ -25,7 +25,7 @@ const BOOK_PATHS = [
 
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import useReadingStats from '../hooks/useReadingStats';
+import useReadingStats from '../../hooks/useReadingStats';
 
 export default function ProgressBar() {
   const { progress } = useReadingStats();

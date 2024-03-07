@@ -1,5 +1,5 @@
 import DefaultLayout from '../layout/DefaultLayout';
-import ReadingGoalHero from '../components/ReadingGoalHero';
+import ReadingGoalHero from '../components/ReadingStats/ReadingGoalHero';
 import { ReadingStatsProvider } from '../contexts/ReadingStatsContext';
 
 export default function Home() {

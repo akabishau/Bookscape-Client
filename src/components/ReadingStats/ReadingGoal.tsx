@@ -1,32 +1,8 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import ProgressBar from './ProgressBar';
+
 import ReadingGoalModal from './ReadingGoalModal';
-import useReadingStats from '../hooks/useReadingStats';
-
-function ReadingGoalHero() {
-  return (
-    <Wrapper>
-      <ReadingGoal />
-      <ProgressBar />
-    </Wrapper>
-  );
-}
-
-export default ReadingGoalHero;
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  gap: 1rem;
-`;
-
-const Goal = styled.div`
-  display: grid;
-  gap: 1rem;
-  justify-items: start;
-  background-color: yellow;
-`;
+import useReadingStats from '../../hooks/useReadingStats';
 
 function ReadingGoal() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -60,7 +36,15 @@ function ReadingGoal() {
   );
 }
 
+export default ReadingGoal;
+
 const ReadingGoalContainer = styled.div`
-  /* Add styles for the container */
   background-color: pink;
+`;
+
+const Goal = styled.div`
+  display: grid;
+  gap: 1rem;
+  justify-items: start;
+  background-color: yellow;
 `;
