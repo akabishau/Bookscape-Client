@@ -61,26 +61,38 @@ const CancelButton = styled(ModalButton)`
   }
 `;
 
+import { useContext } from 'react';
+import { ReadingStatsContext } from '../contexts/ReadingStatsContext';
+
 // The modal component itself
-const ReadingGoalModal = ({ isOpen, onClose, onSetGoal }) => {
-  const [goal, setGoal] = useState('');
+const ReadingGoalModal = ({ isOpen, onClose }) => {
+  // using internal state to make the input a controlled component
+
+  const { goal, setGoal } = useContext(ReadingStatsContext);
+  const [inputValue, setInputValue] = useState(goal);
 
   if (!isOpen) {
     return null;
   }
 
+  const handleSetGoal = () => {
+    setGoal(Number(inputValue));
+    onClose();
+  };
+
   return (
     <ModalBackdrop onClick={onClose}>
+      {/* Prevent the backdrop click from closing the modal */}
       <ModalContainer onClick={e => e.stopPropagation()}>
         <ModalTitle>Reading Goal</ModalTitle>
         <div>How many books would you like to read in 2024?</div>
         <ModalInput
           type="number"
-          value={goal}
-          onChange={e => setGoal(e.target.value)}
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
           placeholder="Enter number"
         />
-        <ModalButton onClick={() => onSetGoal(goal)}>Set goal</ModalButton>
+        <ModalButton onClick={handleSetGoal}>Set goal</ModalButton>
         <CancelButton onClick={onClose}>Cancel</CancelButton>
       </ModalContainer>
     </ModalBackdrop>
