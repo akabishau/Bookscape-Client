@@ -6,12 +6,8 @@ import useReadingStats from '../../hooks/useReadingStats';
 
 function ReadingGoal() {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { goal, setGoal, completed, progress } = useReadingStats();
+  const { goal, completed, progress } = useReadingStats();
 
-  const handleSetGoal = goal => {
-    setGoal(goal);
-    setModalOpen(false);
-  };
   return (
     <ReadingGoalContainer>
       <h1>Reading Goal</h1>
@@ -20,7 +16,6 @@ function ReadingGoal() {
         <ReadingGoalModal
           isOpen={isModalOpen}
           onClose={() => setModalOpen(false)}
-          onSetGoal={handleSetGoal}
         />
       </div>
       <p>{progress}%</p>
@@ -39,12 +34,8 @@ function ReadingGoal() {
 export default ReadingGoal;
 
 const ReadingGoalContainer = styled.div`
-  background-color: pink;
-`;
-
-const Goal = styled.div`
   display: grid;
   gap: 1rem;
   justify-items: start;
-  background-color: yellow;
+  background-color: pink;
 `;
